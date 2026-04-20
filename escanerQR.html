@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scanner Test</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+    <h2 style="text-align: center;">Mi Escáner</h2>
+    <div id="reader" style="width: 100%; max-width: 500px; margin: auto;"></div>
+    <div id="resultado" style="text-align: center; margin-top: 20px; font-size: 20px;"></div>
+
+    <script>
+        function onScanSuccess(decodedText) {
+            document.getElementById('resultado').innerText = "Código: " + decodedText;
+            // Detener después de leer uno para evitar spam
+            html5QrcodeScanner.clear();
+        }
+
+        // Configuración simplificada
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 }
+        );
+        
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
