@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: radial-gradient(circle at top, #1e293b 0%, #020617 100%);
+            color: #f8fafc; 
+        }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <header class="glass-panel sticky top-0 z-50 border-b border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-white">
+                    Estructuras De Datos
+                </h1>
+            </div>
+             
+            <div class="relative z-50">
+                <button onclick="toggleMenu()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-600/50 font-semibold py-2.5 px-6 rounded-xl shadow-lg transition-all flex items-center gap-2 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    Seleccionar Módulo
+                    <svg class="fill-current h-4 w-4 ml-1 opacity-70" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </button>
+                
+                <ul id="menu-modulos" class="absolute top-full mt-2 text-sm text-slate-300 w-72 bg-slate-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-slate-700 right-0 sm:left-0 overflow-hidden transition-all duration-200 ease-in-out opacity-0 pointer-events-none -translate-y-2">
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors border-b border-slate-700/50" onclick="seleccionarOpcion(1)">1. Fundamentos y Listas</a></li>
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors border-b border-slate-700/50" onclick="seleccionarOpcion(2)">2. Matrices y Aplicaciones</a></li>
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors border-b border-slate-700/50" onclick="seleccionarOpcion(3)">3. Pilas (Stacks)</a></li>
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors border-b border-slate-700/50" onclick="seleccionarOpcion(4)">4. Colas (Queues)</a></li>
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors border-b border-slate-700/50" onclick="seleccionarOpcion(5)">5. Algoritmos de Ordenamiento</a></li>
+                    <li><a class="hover:bg-indigo-600 hover:text-white py-3 px-5 block cursor-pointer transition-colors" onclick="seleccionarOpcion(6)">6. Grafos y Caminos Cortos</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <div class="lg:col-span-1 glass-panel p-5 rounded-2xl h-max">
+            <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-3">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <h3 class="font-bold text-sm tracking-widest uppercase text-slate-400">Explorador</h3>
+            </div>
+            <div id="lista-archivos" class="flex flex-col gap-2">
+                <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/50 text-center">
+                    <p class="text-xs text-slate-500">Haz clic en "Seleccionar Módulo" arriba para ver las carpetas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 flex flex-col gap-6">
+            <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-32 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 transition-transform group-hover:scale-110 duration-700"></div>
+                <h2 id="titulo-archivo" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400 mb-3 relative z-10">
+                    Bienvenido al Entorno
+                </h2>
+                <p id="explicacion-archivo" class="text-slate-300 text-lg leading-relaxed font-light relative z-10 max-w-3xl">
+                    Este panel actuará como tu consola interactiva. Elige una práctica y un archivo para inspeccionar su lógica y ver los resultados en tiempo real sin necesidad de una terminal de Python.
+                </p>
+            </div>
+
+            <div id="panel-interactivo" class="glass-panel p-6 rounded-2xl hidden flex-grow border-t-4 border-t-indigo-500">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-sm font-bold text-slate-300 flex items-center gap-3 uppercase tracking-wider">
+                        <span class="flex h-2.5 w-2.5 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        Output del Sistema
+                    </h3>
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                    </div>
+                </div>
+                
+                <div id="zona-interactiva" class="p-1">
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const btnStyle = "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-2.5 px-5 rounded-lg shadow-lg shadow-indigo-500/30 transform transition-all hover:scale-[1.02] active:scale-95 text-sm";
+        const terminalStyle = "p-5 bg-[#0a0f1c] border border-slate-700/50 rounded-xl shadow-inner font-mono text-sm overflow-x-auto";
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu-modulos');
+            menu.classList.toggle('opacity-0');
+            menu.classList.toggle('pointer-events-none');
+            menu.classList.toggle('-translate-y-2');
+        }
+
+        function seleccionarOpcion(id) {
+            cargarPractica(id);
+            toggleMenu(); // Cierra el menú al seleccionar
+        }
+
+        // Cierra el menú si haces clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu-modulos');
+            const boton = menu.previousElementSibling;
+            if (!menu.contains(event.target) && !boton.contains(event.target) && !menu.classList.contains('opacity-0')) {
+                toggleMenu();
+            }
+        });
+
+        const datosPracticas = {
+            1: {
+                nombre: "Módulo 1: Fundamentos y Listas",
+                archivos: [
+                    {
+                        id: "cali_finales",
+                        nombre: "cali_finales.py",
+                        descripcion: "Procesa un arreglo de calificaciones. Obtiene el promedio numérico general, segmenta porcentualmente a los alumnos aprobados de los reprobados, y extrae la cantidad total de notas sobresalientes.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                                    <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Variable Local</p>
+                                    <p class="font-mono text-indigo-300">calificaciones = [8, 8, 7, 5, 10, 9, 9, 5, 6, 10]</p>
+                                </div>
+                                <button onclick="document.getElementById('res-cali').classList.remove('hidden')" class="${btnStyle} w-max">▶ Ejecutar Script</button>
+                                <div id="res-cali" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2 hidden">
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl shadow-lg text-center"><p class="text-xs text-slate-400 mb-1">Promedio</p><p class="text-2xl text-blue-400 font-bold">7.7</p></div>
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl shadow-lg text-center"><p class="text-xs text-slate-400 mb-1">Notas ≥ 8</p><p class="text-2xl text-emerald-400 font-bold">6</p></div>
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl shadow-lg text-center"><p class="text-xs text-slate-400 mb-1">Aprobados</p><p class="text-2xl text-green-400 font-bold">80%</p></div>
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl shadow-lg text-center"><p class="text-xs text-slate-400 mb-1">Reprobados</p><p class="text-2xl text-red-400 font-bold">20%</p></div>
+                                </div>
+                            </div>`
+                    },
+                    {
+                        id: "paranga_dicc",
+                        nombre: "paranga_dicc.py",
+                        descripcion: "Utiliza un Diccionario estándar (tabla Hash) para llevar a cabo el conteo de frecuencia de cada letra en una cadena de texto, agregando claves dinámicamente según se descubren caracteres.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <div class="flex items-center gap-3">
+                                    <input id="txt-paranga" type="text" value="Parangaricutirimicuaro" class="w-full max-w-md bg-slate-900/80 border border-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 px-4 py-2.5 rounded-lg text-white font-mono transition-all outline-none">
+                                    <button onclick="simularDicc()" class="${btnStyle}">▶ Analizar Hash</button>
+                                </div>
+                                <div id="res-dicc" class="${terminalStyle} hidden text-emerald-400 whitespace-pre"></div>
+                            </div>`
+                    },
+                    {
+                        id: "paranga_fijo",
+                        nombre: "Parangaricutirimicuaro.py",
+                        descripcion: "Realiza la misma tarea de conteo pero simulando estructuras fijas de memoria de bajo nivel mediante arreglos estáticos de 26 posiciones.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <p class="text-sm text-slate-400 font-mono bg-slate-800/50 p-3 rounded-lg border border-slate-700 w-max">cadena_objetivo = "Parangaricutirimicuaro"</p>
+                                <button onclick="simularFijo()" class="${btnStyle} w-max">▶ Mapear Memoria Fija</button>
+                                <div id="res-fijo" class="hidden grid grid-cols-4 sm:grid-cols-6 gap-3"></div>
+                            </div>`
+                    },
+                    {
+                        id: "toneladas",
+                        nombre: "toneladas_cereal.py",
+                        descripcion: "Efectúa operaciones de filtrado sobre colecciones lineales. Evalúa un conjunto de toneladas métricas y distribuye los elementos en listas separadas dependiendo de si superan o no el promedio global.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                                    <p class="font-mono text-indigo-300 text-sm">datos = [12, 24, 16, 15, 20, 18, 6, 10, 12, 11, 15, 12]</p>
+                                </div>
+                                <button onclick="document.getElementById('res-toneladas').classList.remove('hidden')" class="${btnStyle} w-max">▶ Procesar y Segmentar</button>
+                                <div id="res-toneladas" class="hidden flex flex-col gap-3">
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl"><span class="text-slate-400 text-sm">Media global calculada:</span> <span class="text-amber-400 font-mono text-lg ml-2">14.25 ton</span></div>
+                                    <div class="p-4 bg-emerald-900/20 border border-emerald-800/50 rounded-xl"><span class="text-emerald-400 font-bold text-sm">📈 SUPERIORES:</span> <span class="font-mono text-slate-300 ml-2">[24, 16, 15, 20, 18, 15]</span></div>
+                                    <div class="p-4 bg-red-900/20 border border-red-800/50 rounded-xl"><span class="text-red-400 font-bold text-sm">📉 INFERIORES:</span> <span class="font-mono text-slate-300 ml-2">[12, 6, 10, 12, 11, 12]</span></div>
+                                </div>
+                            </div>`
+                    }
+                ]
+            },
+            2: {
+                nombre: "Módulo 2: Matrices y Aplicaciones",
+                archivos: [
+                    {
+                        id: "matriz_mult",
+                        nombre: "matriz.py",
+                        descripcion: "Multiplicación de arreglos bidimensionales de 3x3. Implementa tres ciclos iterativos anidados para calcular la combinación de renglones y columnas.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <div class="flex gap-6">
+                                    <div class="p-4 bg-slate-800/50 border border-slate-700 rounded-xl"><p class="text-xs text-slate-400 mb-2">Matriz A</p><p class="font-mono text-sm text-indigo-300">[[5,6,13],<br>[3,10,1],<br>[2,11,3]]</p></div>
+                                    <div class="p-4 bg-slate-800/50 border border-slate-700 rounded-xl"><p class="text-xs text-slate-400 mb-2">Matriz B</p><p class="font-mono text-sm text-indigo-300">[[1,2,17],<br>[6,5,15],<br>[3,11,12]]</p></div>
+                                </div>
+                                <button onclick="simularMatriz()" class="${btnStyle} w-max">▶ Calcular Producto</button>
+                                <div id="res-matriz" class="${terminalStyle} hidden text-emerald-400"></div>
+                            </div>`
+                    },
+                    {
+                        id: "sala_cine",
+                        nombre: "sala.py",
+                        descripcion: "Control estructural de una cuadrícula de asientos de 6x6. Maneja subrutinas modulares para reservar y desocupar.",
+                        interfaz: `
+                            <div class="flex flex-col md:flex-row gap-8 items-start">
+                                <div>
+                                    <p class="text-xs text-slate-400 uppercase tracking-widest mb-3">Matriz Interactiva</p>
+                                    <div id="grid-sala" class="grid grid-cols-6 gap-2 p-4 bg-slate-800/50 border border-slate-700 rounded-xl w-max"></div>
+                                </div>
+                                <div class="flex flex-col gap-3 w-full max-w-xs">
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl"><p class="text-xs text-slate-400">Ocupación Total</p><p id="total-sala" class="text-3xl text-indigo-400 font-bold">0</p></div>
+                                    <div class="p-4 bg-slate-800/80 border border-slate-700 rounded-xl"><p class="text-xs text-slate-400">Fila más demandada</p><p id="fila-sala" class="text-3xl text-purple-400 font-bold">N/A</p></div>
+                                </div>
+                            </div>`
+                    }
+                ]
+            },
+            3: {
+                nombre: "Módulo 3: Pilas (Stacks)",
+                archivos: [
+                    {
+                        id: "pila_num",
+                        nombre: "Ejer1.py",
+                        descripcion: "Construcción explícita de un TDA Pila (estructura LIFO) orientada a objetos.",
+                        interfaz: `
+                            <div class="flex flex-col gap-6">
+                                <div class="flex gap-3">
+                                    <input id="input-pila1" type="number" value="40" class="bg-slate-900/80 border border-slate-600 focus:border-indigo-500 px-4 py-2 rounded-lg text-white font-mono outline-none w-24 text-center">
+                                    <button onclick="pushPila1()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition-all text-sm">Push()</button>
+                                    <button onclick="popPila1()" class="bg-pink-600 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition-all text-sm">Pop()</button>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 mb-2 font-mono">Memoria Stack:</p>
+                                    <div class="flex flex-col-reverse gap-1.5 border-2 border-dashed border-slate-700 p-4 w-48 min-h-[200px] bg-[#0a0f1c] rounded-xl shadow-inner" id="stack-visual-1"></div>
+                                </div>
+                            </div>`
+                    },
+                    {
+                        id: "pila_dulces",
+                        nombre: "Ejer2.py",
+                        descripcion: "Aplica las propiedades de inversión LIFO a una lista de precios.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <button onclick="simularDulces()" class="${btnStyle} w-max">▶ Iniciar Inversión LIFO</button>
+                                <div id="res-dulces" class="${terminalStyle} hidden flex flex-col gap-3"></div>
+                            </div>`
+                    }
+                ]
+            },
+            4: {
+                nombre: "Módulo 4: Colas (Queues)",
+                archivos: [
+                    {
+                        id: "colas_banco",
+                        nombre: "colas.py",
+                        descripcion: "Modela un flujo FIFO (First In, First Out) simulando turnos bancarios.",
+                        interfaz: `
+                            <div class="flex flex-col gap-6">
+                                <div class="flex gap-3 items-center">
+                                    <button onclick="operacionCola('retiro')" class="bg-rose-600 hover:bg-rose-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all text-sm">📉 Aplicar Retiro (-$500)</button>
+                                    <button onclick="operacionCola('deposito')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all text-sm">📈 Aplicar Depósito (+$300)</button>
+                                </div>
+                                <div class="p-6 bg-[#0a0f1c] border border-slate-700/50 rounded-xl shadow-inner overflow-x-auto">
+                                    <p class="text-xs text-slate-500 mb-4 font-mono">Cola de Cuentas (Frente a Final):</p>
+                                    <div class="flex gap-3 items-center" id="queue-visual"></div>
+                                </div>
+                            </div>`
+                    }
+                ]
+            },
+            5: {
+                nombre: "Módulo 5: Ordenamientos",
+                archivos: [
+                    {
+                        id: "ordenamientos",
+                        nombre: "bubbleSort.py",
+                        descripcion: "Técnicas clásicas de ordenamiento lineal y recursivo.",
+                        interfaz: `
+                            <div class="flex flex-col gap-6">
+                                <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700">
+                                    <p class="text-xs text-slate-400 uppercase mb-1">Array Desordenado</p>
+                                    <p class="font-mono text-pink-300">[10, 50, 23, 3, 43, 23, 29, 49, 12, 40]</p>
+                                </div>
+                                <div class="flex flex-wrap gap-3">
+                                    <button onclick="ordenarLista('Bubble')" class="bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded-lg border border-slate-500 text-sm transition-all shadow">Bubble Sort</button>
+                                    <button onclick="ordenarLista('Merge')" class="bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded-lg border border-slate-500 text-sm transition-all shadow">Merge Sort</button>
+                                    <button onclick="ordenarLista('Quick')" class="bg-indigo-600 hover:bg-indigo-500 text-white py-2 px-4 rounded-lg shadow-lg shadow-indigo-500/30 text-sm transition-all">Quick Sort</button>
+                                </div>
+                                <div id="res-ordenamiento" class="${terminalStyle} hidden text-emerald-400"></div>
+                            </div>`
+                    }
+                ]
+            },
+            6: {
+                nombre: "Módulo 6: Grafos y Caminos Cortos",
+                archivos: [
+                    {
+                        id: "dijkstra_grafo",
+                        nombre: "nueva_practica.py",
+                        descripcion: "Implementa el algoritmo de Dijkstra para grafos pesados.",
+                        interfaz: `
+                            <div class="flex flex-col gap-5">
+                                <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center justify-between max-w-sm">
+                                    <span class="text-slate-300 font-mono">Nodo Raíz (Inicio):</span>
+                                    <span class="bg-purple-500/20 text-purple-300 font-bold py-1 px-3 rounded text-lg">2</span>
+                                </div>
+                                <button onclick="simularGrafo()" class="${btnStyle} w-max">▶ Ejecutar Dijkstra</button>
+                                <div id="res-grafo" class="${terminalStyle} hidden text-emerald-400 leading-relaxed"></div>
+                            </div>`
+                    }
+                ]
+            }
+        };
+
+        let practicaActiva = null;
+        let listaAsientos = Array(6).fill(0).map(() => Array(6).fill(0));
+        let estadoPila1 = [10, 20, 30];
+        let estadoCola = [1000, 1000, 1000, 1000, 1000];
+
+        function cargarPractica(id) {
+            practicaActiva = datosPracticas[id];
+            const contenedorLista = document.getElementById('lista-archivos');
+            contenedorLista.innerHTML = '';
+
+            practicaActiva.archivos.forEach((archivo, index) => {
+                const btn = document.createElement('button');
+                btn.className = "text-left w-full px-4 py-3 text-sm rounded-xl bg-slate-800/40 hover:bg-indigo-600/20 hover:border-indigo-500/50 border border-transparent text-slate-300 hover:text-white transition-all font-mono truncate group flex items-center gap-2";
+                btn.innerHTML = `<svg class="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> ${archivo.nombre}`;
+                btn.onclick = () => mostrarArchivo(index);
+                contenedorLista.appendChild(btn);
+            });
+
+            document.getElementById('titulo-archivo').innerText = practicaActiva.nombre;
+            document.getElementById('explicacion-archivo').innerText = "Selecciona cualquiera de los scripts listados a la izquierda para interactuar con su código interno.";
+            document.getElementById('panel-interactivo').classList.add('hidden');
+        }
+
+        function mostrarArchivo(index) {
+            const archivo = practicaActiva.archivos[index];
+            document.getElementById('titulo-archivo').innerText = archivo.nombre;
+            document.getElementById('explicacion-archivo').innerText = archivo.descripcion;
+            
+            document.getElementById('panel-interactivo').classList.remove('hidden');
+            document.getElementById('zona-interactiva').innerHTML = archivo.interfaz;
+
+            if (archivo.id === 'sala_cine') inicializarSala();
+            if (archivo.id === 'pila_num') renderPila1();
+            if (archivo.id === 'colas_banco') renderCola();
+        }
+
+        // Simulación lógica de los archivos
+        function simularDicc() {
+            const cad = document.getElementById('txt-paranga').value;
+            let conteo = {};
+            for(let l of cad) { conteo[l] = (conteo[l] || 0) + 1; }
+            let html = "<span class='text-slate-500'># Salida del Diccionario Hash</span>\n{\n";
+            for(let k in conteo) { html += `  <span class='text-indigo-300'>"${k}"</span>: <span class='text-purple-400'>${conteo[k]}</span>,\n`; }
+            html += "}";
+            const res = document.getElementById('res-dicc'); res.innerHTML = html; res.classList.remove('hidden');
+        }
+
+        function simularFijo() {
+            const cad = "Parangaricutirimicuaro";
+            const minus = "abcdefghijklmnñopqrstuvwxyz";
+            let conteoMin = Array(26).fill(0);
+            for (let l of cad) { let idx = minus.indexOf(l); if (idx !== -1) conteoMin[idx]++; }
+            let html = "";
+            for (let i = 0; i < 26; i++) {
+                if (conteoMin[i] > 0) {
+                    html += `<div class="p-3 bg-[#0a0f1c] border border-slate-700/50 rounded-xl text-center shadow-inner"><span class="text-indigo-400 font-bold text-lg">'${minus[i]}'</span><br><span class="text-xs text-slate-500">Idx [${i}]</span><br><span class="text-emerald-400 font-mono">val: ${conteoMin[i]}</span></div>`;
+                }
+            }
+            const res = document.getElementById('res-fijo'); res.innerHTML = html; res.classList.remove('hidden');
+        }
+
+        function simularMatriz() {
+            const res = document.getElementById('res-matriz');
+            res.innerHTML = "<span class='text-slate-500'># Matriz Resultante AB</span>\n[\n  [ <span class='text-indigo-300'>170, 183, 331</span> ],\n  [ <span class='text-indigo-300'> 66,  67, 213</span> ],\n  [ <span class='text-indigo-300'> 77,  92, 235</span> ]\n]";
+            res.classList.remove('hidden');
+        }
+
+        function inicializarSala() {
+            const grid = document.getElementById('grid-sala'); grid.innerHTML = '';
+            for(let i=0; i<6; i++) {
+                for(let j=0; j<6; j++) {
+                    const btn = document.createElement('div');
+                    btn.className = `w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold cursor-pointer transition-all border ${listaAsientos[i][j] === 1 ? 'bg-pink-600/20 border-pink-500 text-pink-400 shadow-[0_0_10px_rgba(236,72,153,0.3)]' : 'bg-[#0a0f1c] border-slate-700 text-slate-500 hover:border-indigo-500 hover:text-indigo-400'}`;
+                    btn.innerText = `${i+1},${j+1}`;
+                    btn.onclick = () => { listaAsientos[i][j] = listaAsientos[i][j] === 0 ? 1 : 0; inicializarSala(); };
+                    grid.appendChild(btn);
+                }
+            }
+            let total = listaAsientos.flat().reduce((a,b)=>a+b, 0);
+            document.getElementById('total-sala').innerText = total;
+            let sumasF = listaAsientos.map(r => r.reduce((a,b)=>a+b, 0));
+            let maxF = Math.max(...sumasF);
+            document.getElementById('fila-sala').innerText = maxF > 0 ? `Fila ${sumasF.indexOf(maxF) + 1}` : "N/A";
+        }
+
+        function renderPila1() {
+            const contenedor = document.getElementById('stack-visual-1'); contenedor.innerHTML = '';
+            estadoPila1.forEach((el, idx) => {
+                const isTop = idx === estadoPila1.length - 1;
+                const node = document.createElement('div');
+                node.className = `p-3 text-center text-sm font-mono rounded-lg border transition-all ${isTop ? 'bg-indigo-600/20 border-indigo-500 text-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.2)] font-bold' : 'bg-slate-800/50 border-slate-700 text-slate-400'}`;
+                node.innerText = isTop ? `[ ${el} ] < Top` : `[ ${el} ]`;
+                contenedor.appendChild(node);
+            });
+        }
+        function pushPila1() { const val = parseInt(document.getElementById('input-pila1').value); if(!isNaN(val)){ estadoPila1.push(val); renderPila1(); } }
+        function popPila1() { if(estadoPila1.length > 0){ estadoPila1.pop(); renderPila1(); } }
+
+        function simularDulces() {
+            const res = document.getElementById('res-dulces');
+            res.innerHTML = `<div class="text-slate-400">root@estructuras:~$ python Ejer2.py</div><div class="text-indigo-300 mt-2">[*] 1. Datos Ordenados:</div><div class="text-slate-300">[11890.0, 12500.5, 13010.35, 13650.8, 13999.0, 14100.0, 14780.4, 15120.0, 15550.75, 15800.0, 16250.25]</div><div class="text-indigo-300 mt-2">[*] 2. Insertando en Pila (Push)... <span class="text-emerald-400">OK</span></div><div class="text-purple-400 font-bold mt-2">[*] 3. Inversión Completa aplicando Pop (LIFO):</div><div class="text-emerald-400">[16250.25, 15800.0, 15550.75, 15120.0, 14780.4, 14100.0, 13999.0, 13650.8, 13010.35, 12500.5, 11890.0]</div>`;
+            res.classList.remove('hidden');
+        }
+
+        function renderCola() {
+            const cont = document.getElementById('queue-visual'); cont.innerHTML = '';
+            estadoCola.forEach((el, idx) => {
+                const isFront = idx === 0;
+                const node = document.createElement('div');
+                node.className = `p-4 font-mono text-sm rounded-xl border transition-all min-w-[90px] text-center shadow-lg ${isFront ? 'bg-emerald-900/20 border-emerald-500 text-emerald-400 shadow-emerald-500/20' : 'bg-slate-800/80 border-slate-700 text-slate-300'}`;
+                node.innerHTML = isFront ? `<span class="text-xs text-emerald-600 block mb-1">FRONT</span>$${el}` : `<span class="text-xs text-slate-600 block mb-1">NODO</span>$${el}`;
+                cont.appendChild(node);
+                if(idx < estadoCola.length - 1) { 
+                    const arr = document.createElement('div'); 
+                    arr.className="text-slate-600 font-bold px-1"; 
+                    arr.innerText="←"; 
+                    cont.appendChild(arr); 
+                }
+            });
+        }
+        function operacionCola(tipo) {
+            if(estadoCola.length === 0) return;
+            let cte = estadoCola.shift();
+            estadoCola.push(tipo === 'retiro' ? (cte - 500) : (cte + 300));
+            renderCola();
+        }
+
+        function ordenarLista(metodo) {
+            const res = document.getElementById('res-ordenamiento');
+            res.innerHTML = `<span class='text-slate-500'># Ejecutando ${metodo} Sort...</span><br><span class='text-indigo-300'>Array ordenado:</span><br>[ <span class='text-emerald-400'>3, 10, 12, 23, 23, 29, 40, 43, 49, 50</span> ]`;
+            res.classList.remove('hidden');
+        }
+
+        function simularGrafo() {
+            const res = document.getElementById('res-grafo');
+            res.innerHTML = `
+                <div class="text-purple-400 font-bold mb-2">--- RUTAS MÁS CORTAS DESDE EL NODO 2 ---</div>
+                <div class="flex flex-col gap-1">
+                    <div><span class="text-slate-400">Destino 0:</span> <span class="text-indigo-300">[(2, 0, 20)]</span> <span class="text-slate-500">| Coste:</span> <span class="text-emerald-400">20</span></div>
+                    <div><span class="text-slate-400">Destino 1:</span> <span class="text-indigo-300">[(2, 0, 20), (0, 1, 10)]</span> <span class="text-slate-500">| Coste:</span> <span class="text-emerald-400">30</span></div>
+                    <div><span class="text-slate-400">Destino 3:</span> <span class="text-indigo-300">[(2, 3, 20)]</span> <span class="text-slate-500">| Coste:</span> <span class="text-emerald-400">20</span></div>
+                    <div><span class="text-slate-400">Destino 4:</span> <span class="text-indigo-300">[(2, 0, 20), (0, 1, 10), (1, 4, 10)]</span> <span class="text-slate-500">| Coste:</span> <span class="text-emerald-400">40</span></div>
+                    <div><span class="text-slate-400">Destino 5:</span> <span class="text-indigo-300">[(2, 3, 20), (3, 5, 2)]</span> <span class="text-slate-500">| Coste:</span> <span class="text-emerald-400">22</span></div>
+                </div>`;
+            res.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
